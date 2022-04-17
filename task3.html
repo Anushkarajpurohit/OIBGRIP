@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/3e74b1dd15.js" crossorigin="anonymous"></script>
+    <style>
+  *  {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+
+}
+.todo-head
+{
+    background-color:rgba(50, 200, 42, 0.777);
+    padding: 20px;
+    font-size: x-large;
+}
+.container
+{
+    background-color: pink ;
+    display: flex;
+    height:87vh;
+}
+.box
+{
+    text-align: center;
+    width: 25px;
+    border: 1px black solid;
+    width: 40%;
+    margin: 70px;
+    margin-left: 250px;
+    padding: 10px 10px;
+    background-color: white;
+    
+}
+#ip-title
+{
+    font-size: x-large;
+    height: 8vh;
+    width: 90%;
+}
+#ip-desc
+{
+    width: 90%;
+    font-size: x-large;
+}
+#save-btn
+{
+    font-size: larger;
+  margin-top: 5px;
+ color: white;
+ background-color: cornflowerblue;
+ width: 100%;
+}
+.box2
+{
+
+    margin: 70px;
+    margin-left: 50px;
+    padding: 10px 10px;
+    text-align: left;
+    width: 100%;
+}
+#top
+{
+    text-align: left;
+    /* word-spacing:200px; */
+    font-size:x-large;
+} 
+td
+{
+padding: 10px;
+border: 1px solid red;
+}
+.dlt
+{
+    color: black;
+    border: 00px;
+    font-size: large;
+}
+.task
+{
+    background-color: bisque;
+    display: flex;
+    flex-wrap:nowrap; 
+    font-size: x-large;
+    width: 100%;
+    padding: 4px;
+    margin: 5px;
+}
+.title
+{
+    flex-grow: 1;
+}
+.desc
+{
+    flex-grow: 2;
+}
+.act
+{
+    flex-grow: 1;
+}
+</style>
+</head>
+<body>
+    <div class="todo-head"><B>TODO LIST</B></div>
+<div class="container">
+<div class="box">
+    <div id="add-title">
+        <input type="text" placeholder="Title" id="ip-title" required>
+        <textarea id="ip-desc" name="ip-desc" rows=15" cols="" placeholder="what's the plan today!?" required ></textarea>
+<button  type="submit" id="save-btn" value="save">SAVE</button>
+
+</div>
+</div>
+<div class="box2">
+<span id="top"><b></b>Title: </b>  description</span>
+<hr>    
+<div id="tasks">
+
+</div>
+</div>
+
+<script>
+    var ele_title=document.getElementById("ip-title");
+    var ele_desc=document.getElementById("ip-desc");
+// var emo=<i class="fa-solid fa-trash"></i>;
+var ele_list=document.querySelector("#tasks");
+
+document.getElementById("save-btn").addEventListener("click",()=>
+{
+if(!ele_desc.value || !ele_title.value)
+{
+    alert("fill the title and task box");
+    return;
+
+}
+var ele_task=document.createElement("div");
+ele_task.classList.add("task");
+
+var task_title=document.createElement("div");
+task_title.classList.add("title");
+task_title.innerHTML=ele_title.value;
+
+var task_desc=document.createElement("div");
+task_desc.classList.add("desc");
+task_desc.innerHTML=ele_desc.value;
+
+ele_task.appendChild(task_title);
+ele_task.appendChild(task_desc);
+
+
+var ele_act=document.createElement("div");
+ele_act.classList.add("act");
+
+var delt=document.createElement("button");
+delt.classList.add("dlt");
+delt.innerHTML='<i class="fa-solid fa-trash"></i>';
+ele_act.appendChild(delt);
+ele_task.appendChild(ele_act);
+ele_list.appendChild(ele_task);
+ele_title.value="";
+ele_desc.value="";
+
+delt.addEventListener("click",()=>
+{
+    ele_list.removeChild(ele_task);
+})
+});
+</script>
+</body>
+</html>s

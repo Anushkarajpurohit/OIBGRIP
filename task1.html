@@ -1,0 +1,181 @@
+
+<html>
+    <head>
+       <!-- for styling -->
+       <style>
+          *
+          {
+             margin: 0px;
+             /* padding: 0px; */
+             box-sizing: border-box;
+          }     
+          #title
+          {
+             width: 100%;
+             background-color: rgba(222, 73, 235, 0.625);
+             text-align: center;
+             padding: 10px;
+             border: 2px solid red;
+          }    
+          body
+          {
+             font-family: Verdana, Geneva, Tahoma, sans-serif;
+             font-size: 30px;
+             background-color: rgba(0, 255, 255, 0.211);
+          }
+          input[type="button"]
+          {
+          background-color:rgba(180, 251, 14, 0.551);
+          color: black;
+           width:100%;
+          font-size:30px;
+          }
+   
+          input[type="text"]
+          {
+          background-color:white;
+           width:100%;
+           font-size:30px;
+          }
+          #container
+          {
+            
+             margin: 220px;
+             display: flex;
+             justify-content: center;
+             /* background-color: aqua; */
+             /* height: 400px; */
+             align-items: flex-start;
+          }
+       </style>
+    </head>
+    <!-- create table -->
+    <body>
+       <div id="title">**CALCULATOR**</div>
+       <div id="container">
+          <table >
+             <tr>
+                <td colspan="3"><input type="text" id="result"/></td>
+                <td><input id="backspace" type="button" value="X"/></td>
+             </tr>
+             <tr>
+                <td><input class="btn" type="button" value="1" /> </td>
+                <td><input class="btn" type="button" value="2" /> </td>
+                <td><input class="btn" type="button" value="3" /> </td>
+                <td><input class="btn" type="button" value="/" /> </td>
+             </tr>
+             <tr>
+                <td><input class="btn" type="button" value="4" /> </td>
+                <td><input class="btn" type="button" value="5" /> </td>
+                <td><input class="btn" type="button" value="6" /> </td>
+                <td><input class="btn" type="button" value="-" /> </td>
+             </tr>
+             <tr>
+                <td><input class="btn" type="button" value="7" /> </td>
+                <td><input class="btn" type="button" value="8" /> </td>
+                <td><input class="btn" type="button" value="9" /> </td>
+                <td><input class="btn" type="button" value="+" /> </td>
+             </tr>
+             <tr>
+                <td><input class="btn" type="button" value="." /> </td>
+                <td><input class="btn" type="button" value="0" /> </td>
+                <td><input id="solve" type="button" value="=" /> </td>
+                <td><input class="btn" type="button" value="*" /> </td>
+             </tr>
+             <tr>
+             <td colspan="4"><input id="clr" type="button" value="Clear"/></td>
+          </tr>
+          </table>
+       </div>
+       <script>
+          //function that display value
+          var flagDot=false;
+          var flagOperator=false;
+          var cntOperator=0;
+          var flagSolve=false;
+          var cntDot=0;
+          document.querySelectorAll(".btn").forEach((e)=>{
+             e.addEventListener("click",()=>{
+                //operator
+                if(flagSolve)
+                {
+                   document.getElementById("result").value="";   
+                   flagSolve=false;
+                }
+                if(isOperator(e.value) )
+                {
+                   if(flagOperator)
+                   {  //should not be repeated
+                         return;
+                   }
+                   else
+                   {
+                      document.getElementById("result").value+=e.value;
+                      flagOperator=true;
+                      flagDot=false;
+                      return;
+                   }
+                }   
+                //dot
+                if(e.value=="." )
+                {
+                   if(flagDot)
+                   {  //should not be repeated
+                         return;
+                   }
+                   else
+                   {
+                      document.getElementById("result").value+=e.value;
+                      flagDot=true;
+                      return;
+                   }
+                }
+                // digit 
+                flagOperator=false;
+                // cntDot++;
+                // flagDot=true;
+                document.getElementById("result").value+=e.value;
+             })
+          })          
+          //function that evaluates the digit and return result
+          document.getElementById("solve").addEventListener("click",()=>{
+             var x = document.getElementById("result").value
+              document.getElementById("result").value = eval(x);
+              flagSolve=true;
+              flagDot=false;
+             flagOperator=false;
+          });
+          //function that clear the display
+          document.getElementById("clr").addEventListener("click",()=>{
+             document.getElementById("result").value = ""
+             cntOperator=0;
+             cntDot=0;
+             flagDot=false;
+             flagOperator=false;         
+          });
+          document.getElementById("backspace").addEventListener("click",()=>{
+             var x = document.getElementById("result").value;
+             //last character
+             var c=x[x.length-1];
+             console.log(x);
+             x=x.slice(0,x.length-1);
+             document.getElementById("result").value=x;
+             if(c==".")
+             {
+                flagDot=false;
+             }
+             if(isOperator(c))
+             {
+                flagOperator=false;
+             }
+          });
+          function isOperator(c)
+          {
+             if(c=="+" ||c=="-" ||c=="*" ||c=="/")
+                return true;
+             return false;
+          }
+       </script>
+ 
+    </body>
+ </html> 
